@@ -8,6 +8,8 @@ import (
 	"os"
 	"os/exec"
 
+	"github.com/joho/godotenv"
+
 	"golang.org/x/crypto/ssh"
 )
 
@@ -21,6 +23,11 @@ func getEnv(key string) string {
 }
 
 func main() {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Erreur chargement .env : %v", err)
+	}
 
 	// Load environment variables
 	localUser := getEnv("LOCAL_DB_USER")
