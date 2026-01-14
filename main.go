@@ -17,7 +17,7 @@ import (
 func getEnv(key string) string {
 	value := os.Getenv(key)
 	if value == "" {
-		log.Fatalf("❌ Variable d'environnement manquante : %s", key)
+		log.Fatalf("Variable d'environnement manquante : %s", key)
 	}
 	return value
 }
@@ -47,38 +47,38 @@ func main() {
 
 	localDumpFile := "dump.sql"
 
-	// 1️⃣ Dump local database
-	fmt.Println("➡️  Export local PostgreSQL…")
+	//Dump local database
+	fmt.Println("Export local PostgreSQL…")
 	if err := dumpLocalDB(localUser, localDB, localPass, localDumpFile); err != nil {
-		log.Fatalf("❌ Dump local échoué : %v", err)
+		log.Fatalf("Dump local échoué : %v", err)
 	}
 
-	// 2️⃣ SSH connect
-	fmt.Println("➡️  Connexion SSH…")
+	// SSH connect
+	fmt.Println("Connexion SSH…")
 	client, err := sshConnect(sshUser, sshHost, sshPass, sshKey)
 	if err != nil {
-		log.Fatalf("❌ Connexion SSH échouée : %v", err)
+		log.Fatalf("Connexion SSH échouée : %v", err)
 	}
 	defer client.Close()
 
-	// 3️⃣ Transfer dump via SCP
-	fmt.Println("➡️  Envoi du dump via SSH/SCP…")
+	//  Transfer dump via SCP
+	fmt.Println("Envoi du dump via SSH/SCP…")
 	if err := scpFile(client, localDumpFile, remoteDump); err != nil {
-		log.Fatalf("❌ Erreur SCP : %v", err)
+		log.Fatalf("Erreur SCP : %v", err)
 	}
 
-	// 4️⃣ Import inside Docker
-	fmt.Println("➡️  Import dans Docker distant…")
+	// Import inside Docker
+	fmt.Println("Import dans Docker distant…")
 	cmd := fmt.Sprintf(
 		"docker exec -e PGPASSWORD=%s -i %s psql -U %s -d %s < %s",
 		remoteDBPass, remoteDocker, remoteDBUser, remoteDBName, remoteDump,
 	)
 
 	if err := runRemoteSSH(client, cmd); err != nil {
-		log.Fatalf("❌ Import Docker échoué : %v", err)
+		log.Fatalf("Import Docker échoué : %v", err)
 	}
 
-	fmt.Println("🎉 Succès ! Base importée dans le conteneur Docker distant.")
+	fmt.Println("Succès ! Base importée dans le conteneur Docker distant.")
 }
 
 // ------------------
