@@ -30,7 +30,7 @@ Un outil en **Go** pour automatiser l’export d’une base PostgreSQL locale et
 1. Clonez le dépôt :
 
 ```bash
-git clone [[https://github.com/votre-utilisateur/postgres-remote-docker-importer.git](https://github.com/liephee266/-postgres-remote-docker-importer.git)]
+git clone [https://github.com/votre-utilisateur/postgres-remote-docker-importer.git](https://github.com/liephee266/-postgres-remote-docker-importer.git)
 cd postgres-remote-docker-importer
 ```
 
