@@ -113,5 +113,3 @@ Les contributions sont les bienvenues ! N’hésitez pas à proposer des amélio
 MIT © [Orphée Lié]
 
 ---
-
-Veux‑tu que je fasse ça ?
